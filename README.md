@@ -46,3 +46,42 @@ echo "$solution
 //endregion
 ?>
 ```
+
+## Boîte la plus lourde
+
+```php
+<?php
+
+function solve($weight0, $weight1, $weight2) {
+  // Write your code here
+  // To debug (equivalent to var_dump): error_log(var_export($var, true));
+
+  $weights = [0 => $weight0, 1 => $weight1, 2 => $weight2];
+  $heaviest = max($weights);
+
+  $key = array_search($heaviest, $weights);
+
+  return $key;
+}
+
+/* Ignore and do not change the code below */
+//region
+
+// game loop
+while (TRUE)
+{
+    fscanf(STDIN, "%d", $weight0);
+    fscanf(STDIN, "%d", $weight1);
+    fscanf(STDIN, "%d", $weight2);
+    $oldStdout = fopen('php://stdout', 'wb');
+    eio_dup2(STDERR, STDOUT);
+    eio_event_loop();
+    $action = solve($weight0, $weight1, $weight2);
+    eio_dup2($oldStdout, STDOUT);
+    eio_event_loop();
+    echo "$action
+";
+}
+//endregion
+?>
+```
