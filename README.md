@@ -20,8 +20,10 @@ function computeClosestToZero(array $ts) {
   $maxNeg = max($neg);
   $minPos = min($pos);
 
-  if (abs($maxNeg) < $minPos) {
-    return $maxNeg;
+  if ($maxNeg) {
+    if (($minPos && abs($maxNeg) < $minPos) || !$minPos) {
+      return $maxNeg;
+    }
   }
   
   return $minPos;
