@@ -131,7 +131,7 @@ while (TRUE)
         return $result;
     }
 	
-	$r = allfiles('F:/projects/un-repertoire');
-	print_r($r);
+    $r = allfiles('F:/projects/un-repertoire');
+    print_r($r);
 ?>
 ```
