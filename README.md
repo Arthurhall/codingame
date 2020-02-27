@@ -7,26 +7,26 @@
 
 function computeClosestToZero(array $ts) {
 
-  if (empty($ts) || in_array(0, $ts)) {
-    return 0;
-  }
-
-  $neg = array_filter($ts, function($val) {
-    return $val < 0;
-  });
-
-  $pos = array_diff($ts, $neg);
-
-  $maxNeg = max($neg);
-  $minPos = min($pos);
-
-  if ($maxNeg) {
-    if (($minPos && abs($maxNeg) < $minPos) || !$minPos) {
-      return $maxNeg;
+    if (empty($ts) || in_array(0, $ts)) {
+        return 0;
     }
-  }
+
+    $neg = array_filter($ts, function($val) {
+        return $val < 0;
+    });
+
+    $pos = array_diff($ts, $neg);
+
+    $maxNeg = max($neg);
+    $minPos = min($pos);
+
+    if ($maxNeg) {
+        if (($minPos && abs($maxNeg) < $minPos) || !$minPos) {
+            return $maxNeg;
+        }
+    }
   
-  return $minPos;
+    return $minPos;
 }
 
 /* Ignore and do not change the code below */
@@ -85,5 +85,53 @@ while (TRUE)
 ";
 }
 //endregion
+?>
+```
+
+## Les mots jumeaux
+
+```php
+<?php
+
+    function is_twin($a, $b) {
+        $aSplit = str_split(strtolower($a));
+        $bSplit = str_split(strtolower($b));
+
+        foreach ($aSplit as $letter) {
+            $aCount = count(array_keys($aSplit, $letter));
+            $found = array_keys($bSplit, $letter);
+            if (count($found) !== $aCount) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    
+?>
+```
+
+## Recherche de fichiers 
+
+```php 
+<?php
+    function allfiles($dir, $prefix = '')
+    {
+        $dir = rtrim($dir, '\\/');
+        $result = array();
+        foreach (scandir($dir) as $f) {
+            if ($f !== '.' and $f !== '..') {
+                if (is_dir("$dir\\$f")) {
+                    $result = array_merge($result, allfiles("$dir\\$f", "$prefix$f\\"));
+                } else {
+                    $result[] = $prefix.$f;
+                }
+            }
+        }
+        return $result;
+    }
+	
+	$r = allfiles('F:/projects/un-repertoire');
+	print_r($r);
 ?>
 ```
